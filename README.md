@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="static/osperion-logo.svg" alt="OSPERION logo" width="150">
+  <img src="static/osperion-logo.svg" alt="OSPERION logo" width="150"> <h1 align="center">OSPERION</h1>
 </p>
 
-<h1 align="center">OSPERION</h1>
+
 
 <p align="center">
   <strong>Your Collection. Your Investigation. In Your Control.</strong><br>
@@ -10,10 +10,6 @@
   Local-first digital evidence correlation and investigation workspace
 </p>
 
-<p align="center">
-  <strong>Collect • Correlate • Investigate</strong><br>
-  Local-first digital evidence correlation and investigation workspace
-</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-active%20development-blue" alt="Project status">
