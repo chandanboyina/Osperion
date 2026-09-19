@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 APP_NAME = "OSPERION"
-VERSION = "0.5.0"
+VERSION = "0.5.1"
 DEFAULT_RETENTION_DAYS = 30
 
 
