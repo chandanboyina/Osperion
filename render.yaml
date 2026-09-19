@@ -2,9 +2,13 @@ services:
   - type: web
     name: osperion
     runtime: python
-    plan: free
+    plan: 0.5c-512mb
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.api:app --host 0.0.0.0 --port $PORT
+    disk:
+      name: osperion-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: 3.12
