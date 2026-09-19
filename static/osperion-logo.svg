@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">OSPERION logo</title>
+  <desc id="desc">A magnifying glass surrounding a fingerprint, representing digital evidence investigation.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <circle cx="108" cy="108" r="78" fill="none" stroke="url(#g)" stroke-width="18"/>
+  <path d="M165 165 L226 226" fill="none" stroke="url(#g)" stroke-width="22" stroke-linecap="round"/>
+  <g fill="none" stroke="#f8fafc" stroke-width="7" stroke-linecap="round">
+    <path d="M72 119c-2-30 18-52 43-52 24 0 43 18 45 43"/>
+    <path d="M79 137c-8-38 10-67 36-67 25 0 39 18 41 40"/>
+    <path d="M91 151c-13-37-3-62 20-62 22 0 30 17 31 36"/>
+    <path d="M105 158c-10-28-6-48 9-48 15 0 21 13 22 28"/>
+    <path d="M66 98c9-27 28-43 51-43 15 0 29 6 39 17"/>
+    <path d="M67 111c0 15 3 29 10 43"/>
+    <path d="M157 103c1 20-3 37-11 51"/>
+  </g>
+</svg>
