@@ -78,10 +78,22 @@ function switchTab(tab){
   if((tab==='notes'||tab==='images')&&currentInvestigation)refreshInvestigation();
 }
 function renderOverview(j){
-  $('overviewRecent').innerHTML=j.evidence.length?`<table><thead><tr><th>Time</th><th>Platform</th><th>File</th><th>Artifacts</th></tr></thead><tbody>${j.evidence.slice(0,6).map(e=>`<tr><td>${esc(formatDate(e.created_at))}</td><td>${esc(e.platform)}</td><td>${esc(e.filename)}</td><td>${e.artifact_count}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">No evidence saved in this investigation yet.</div>';
+  $('overviewRecent').innerHTML=j.evidence.length?`<table><thead><tr><th>Time</th><th>Platform</th><th>File</th><th>Matched Artifacts</th></tr></thead><tbody>${j.evidence.slice(0,6).map(e=>{
+    const matches=e.matches||[];
+    const preview=matches.slice(0,2).map(m=>`<div class="evidence-match"><span>${esc(m.artifact_type)}</span><code>${esc(m.value)}</code></div>`).join('');
+    const more=matches.length>2?`<div class="evidence-more">+${matches.length-2} more</div>`:'';
+    const body=matches.length?`<div class="match-count">${matches.length} match${matches.length===1?'':'es'}</div><div class="evidence-match-list">${preview}${more}</div>`:'<span class="no-match">No previous matches</span>';
+    return `<tr><td>${esc(formatDate(e.created_at))}</td><td>${esc(e.platform)}</td><td>${esc(e.filename)}</td><td>${body}</td></tr>`;
+  }).join('')}</tbody></table>`:'<div class="empty">No evidence saved in this investigation yet.</div>';
+}function renderEvidence(items){
+  $('evidenceHistory').innerHTML=items.length?`<table><thead><tr><th>ID</th><th>Time</th><th>Platform</th><th>File</th><th>Matched Artifacts</th></tr></thead><tbody>${items.map(e=>{
+    const matches=e.matches||[];
+    const preview=matches.slice(0,3).map(m=>`<div class="evidence-match"><span>${esc(m.artifact_type)}</span><code>${esc(m.value)}</code></div>`).join('');
+    const more=matches.length>3?`<div class="evidence-more">+${matches.length-3} more</div>`:'';
+    const body=matches.length?`<div class="match-count">${matches.length} match${matches.length===1?'':'es'}</div><div class="evidence-match-list">${preview}${more}</div>`:'<span class="no-match">No previous matches</span>';
+    return `<tr><td>#${e.evidence_id}</td><td>${esc(formatDate(e.created_at))}</td><td>${esc(e.platform)}</td><td>${esc(e.filename)}</td><td>${body}</td></tr>`;
+  }).join('')}</tbody></table>`:'<div class="empty">No saved evidence yet.</div>';
 }
-function renderEvidence(items){
-  $('evidenceHistory').innerHTML=items.length?`<table><thead><tr><th>ID</th><th>Time</th><th>Platform</th><th>File</th><th>Artifacts</th></tr></thead><tbody>${items.map(e=>`<tr><td>#${e.evidence_id}</td><td>${esc(formatDate(e.created_at))}</td><td>${esc(e.platform)}</td><td>${esc(e.filename)}</td><td>${e.artifact_count}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">No saved evidence yet.</div>';
 }
 function renderImages(items){
   $('imageHistory').innerHTML=items.length?`<table><thead><tr><th>Time</th><th>Label</th><th>Platform</th><th>pHash</th><th>SHA-256</th><th>Action</th></tr></thead><tbody>${items.map(i=>`<tr><td>${esc(formatDate(i.created_at))}</td><td>${esc(i.label||i.filename)}</td><td>${esc(i.platform)}</td><td class="mono">${esc(i.phash)}</td><td class="mono">${esc(i.sha256.slice(0,18))}…</td><td><button class="danger-outline" onclick="deleteImage(${i.image_id})">Delete</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">No saved images in this investigation yet.</div>';
