@@ -1,14 +1,15 @@
 from __future__ import annotations
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from .config import APP_NAME, VERSION, get_retention_days, set_retention_days
 from .service import analyze_text, persist, analyze_image, persist_image
 from .db import (
     history, search, stats, cleanup, create_investigation, list_investigations,
     get_investigation, update_investigation, delete_investigation,
-    list_entries, create_entry, update_entry, delete_entry, list_images, delete_image
+    list_entries, create_entry, update_entry, delete_entry, list_images, delete_image,
+    investigation_export
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -171,3 +172,19 @@ def api_retention(payload: dict):
     except Exception: raise HTTPException(400, "days must be an integer")
     cleanup()
     return {"retention_days": days}
+
+
+@app.get("/api/investigations/{investigation_id}/report.pdf")
+def api_investigation_report(investigation_id: int):
+    from .report import build_investigation_pdf
+    snapshot = investigation_export(investigation_id)
+    if not snapshot:
+        raise HTTPException(404, "Investigation not found.")
+    pdf = build_investigation_pdf(snapshot)
+    safe_name = "".join(ch if ch.isalnum() or ch in " -_" else "_" for ch in snapshot["investigation"]["name"]).strip() or "investigation"
+    filename = f"OSPERION_{safe_name}_report.pdf"
+    return Response(
+        content=pdf,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
