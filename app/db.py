@@ -360,14 +360,51 @@ def search(query: str, limit: int = 100) -> list[dict]:
         return [dict(r) for r in rows]
 
 def history(limit: int = 100, investigation_id: int | None = None) -> list[dict]:
+    """Return saved evidence plus artifacts previously observed in other captures.
+
+    The extra match data lets the investigation UI show which observable
+    artifacts were repeated, rather than only showing a raw artifact count.
+    """
     cleanup()
     with connect() as c:
         if investigation_id is None:
-            rows = c.execute("SELECT * FROM evidence ORDER BY created_at DESC LIMIT ?", (limit,)).fetchall()
+            rows = c.execute(
+                "SELECT * FROM evidence ORDER BY created_at DESC LIMIT ?",
+                (limit,)
+            ).fetchall()
         else:
-            rows = c.execute("SELECT * FROM evidence WHERE investigation_id=? ORDER BY created_at DESC LIMIT ?",
-                             (investigation_id, limit)).fetchall()
-        return [dict(r) for r in rows]
+            rows = c.execute(
+                "SELECT * FROM evidence WHERE investigation_id=? "
+                "ORDER BY created_at DESC LIMIT ?",
+                (investigation_id, limit)
+            ).fetchall()
+
+        result = []
+        for row in rows:
+            item = dict(row)
+            matches = c.execute(
+                """SELECT DISTINCT
+                          a.type AS artifact_type,
+                          a.value AS value,
+                          a.confidence AS confidence,
+                          other.evidence_id AS matched_evidence_id,
+                          other.filename AS matched_filename,
+                          other.created_at AS matched_at
+                   FROM artifacts a
+                   JOIN evidence other ON other.evidence_id != a.evidence_id
+                   JOIN artifacts previous
+                     ON previous.evidence_id = other.evidence_id
+                    AND previous.normalized = a.normalized
+                   WHERE a.evidence_id = ?
+                     AND (? IS NULL OR other.investigation_id = ?)
+                   ORDER BY other.created_at DESC
+                   LIMIT 100""",
+                (row["evidence_id"], investigation_id, investigation_id)
+            ).fetchall()
+            item["matches"] = [dict(m) for m in matches]
+            item["match_count"] = len(item["matches"])
+            result.append(item)
+        return result
 
 def stats(investigation_id: int | None = None) -> dict:
     cleanup()
