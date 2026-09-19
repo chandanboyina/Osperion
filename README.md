@@ -1,4 +1,14 @@
-# OSPERION
+<p align="center">
+  <img src="static/osperion-logo.svg" alt="OSPERION logo" width="150">
+</p>
+
+<h1 align="center">OSPERION</h1>
+
+<p align="center">
+  <strong>Your Collection. Your Investigation. In Your Control.</strong><br>
+  <em>Collect • Correlate • Investigate</em><br>
+  Local-first digital evidence correlation and investigation workspace
+</p>
 
 <p align="center">
   <strong>Collect • Correlate • Investigate</strong><br>
