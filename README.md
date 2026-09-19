@@ -72,6 +72,22 @@ Investigations
 
 When evidence is analyzed inside an investigation, OSPERION searches previously **saved evidence in that same investigation**. A match means that an artifact was previously observed; it is not proof that two accounts belong to the same person.
 
+## Investigation reports
+
+Each investigation workspace includes **Download report**. It generates a point-in-time PDF containing:
+
+- Investigation name, description and timestamps
+- Investigation statistics and evidence inventory
+- Saved evidence SHA-256 hashes, filenames, platforms and parser versions
+- Extracted artifacts with confidence and provenance fields
+- All saved Notes, Reports and Remarks
+- Saved profile/media image metadata, SHA-256 and perceptual hashes
+- OSPERION's evidence interpretation and accuracy note
+
+The report contains information that is already saved in the local investigation. Temporary, unsaved analysis is not included.
+
+The PDF is generated locally by OSPERION and downloaded as an `OSPERION_<investigation-name>_report.pdf` file.
+
 ## CLI
 
 Create an investigation:
