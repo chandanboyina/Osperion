@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="static/osperion-logo.svg" alt="OSPERION logo" width="150"> <h1 align="center">OSPERION</h1>
+  <img src="static/osperion-banner.svg" alt="OSPERION — Your Collection. Your Investigation. In Your Control.">
 </p>
 
 
