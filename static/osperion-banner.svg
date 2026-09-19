@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">OSPERION — Your Collection. Your Investigation. In Your Control.</title>
+  <desc id="desc">OSPERION logo with a fingerprint inside a magnifying glass on the left and the project name and motto on the right.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#67d9ff"/>
+      <stop offset="0.55" stop-color="#2196f3"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="text" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.75" stop-color="#dbeafe"/>
+      <stop offset="1" stop-color="#67d9ff"/>
+    </linearGradient>
+    <radialGradient id="bg">
+      <stop offset="0" stop-color="#10243a"/>
+      <stop offset="1" stop-color="#050a12"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+  <circle cx="180" cy="170" r="112" fill="none" stroke="#0b416d" stroke-width="2"/>
+  <circle cx="180" cy="170" r="94" fill="none" stroke="url(#blue)" stroke-width="13"/>
+  <circle cx="180" cy="170" r="70" fill="#050a12" stroke="#dbeafe" stroke-width="5"/>
+  <path d="M222 212 L286 276" fill="none" stroke="url(#blue)" stroke-width="20" stroke-linecap="round"/>
+  <g fill="none" stroke="#f8fafc" stroke-width="5" stroke-linecap="round">
+    <path d="M144 181c-3-25 14-44 35-44 20 0 35 15 37 36"/>
+    <path d="M149 198c-7-31 8-55 30-55 21 0 33 15 35 33"/>
+    <path d="M160 210c-10-30-2-50 17-50 18 0 25 14 26 30"/>
+    <path d="M172 216c-8-23-5-39 8-39 12 0 17 11 18 23"/>
+    <path d="M140 164c8-22 24-34 43-34 12 0 24 5 32 14"/>
+    <path d="M140 175c0 13 3 24 8 34"/>
+    <path d="M209 170c1 16-2 29-8 40"/>
+  </g>
+  <line x1="330" y1="72" x2="330" y2="288" stroke="#1e5b83" stroke-width="2"/>
+  <text x="380" y="158" font-family="Arial, Helvetica, sans-serif" font-size="82" font-weight="800" letter-spacing="5" fill="url(#text)">OSPERION</text>
+  <text x="383" y="207" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="600" fill="#dbeafe">Your Collection. Your Investigation. <tspan fill="#38d5ff">In Your Control.</tspan></text>
+  <line x1="383" y1="232" x2="1035" y2="232" stroke="#1684bd" stroke-width="2"/>
+  <text x="383" y="266" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" letter-spacing="7" fill="#8fdcff">COLLECT  •  CORRELATE  •  INVESTIGATE</text>
+  <text x="383" y="300" font-family="Arial, Helvetica, sans-serif" font-size="12" letter-spacing="3" fill="#6f8ba3">LOCAL-FIRST  |  OPEN SOURCE  |  BUILT FOR INVESTIGATORS</text>
+</svg>
