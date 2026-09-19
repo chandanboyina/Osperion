@@ -378,3 +378,44 @@ def stats(investigation_id: int | None = None) -> dict:
                           (investigation_id,)).fetchall()
     return {"evidence": e, "artifacts": a, "images": im, "platforms": [dict(x) for x in p],
             "retention_days": get_retention_days(), "investigation_id": investigation_id}
+
+
+def investigation_export(investigation_id: int) -> dict | None:
+    """Return a complete point-in-time snapshot for investigation report export."""
+    cleanup()
+    with connect() as c:
+        inv = c.execute("SELECT * FROM investigations WHERE investigation_id=?", (investigation_id,)).fetchone()
+        if not inv:
+            return None
+        evidence_rows = c.execute(
+            "SELECT * FROM evidence WHERE investigation_id=? ORDER BY created_at ASC, evidence_id ASC",
+            (investigation_id,)
+        ).fetchall()
+        evidence = []
+        for e in evidence_rows:
+            item = dict(e)
+            artifact_rows = c.execute(
+                "SELECT * FROM artifacts WHERE evidence_id=? ORDER BY artifact_id ASC",
+                (e["evidence_id"],)
+            ).fetchall()
+            item["artifacts"] = [dict(a) for a in artifact_rows]
+            evidence.append(item)
+        entries = [dict(r) for r in c.execute(
+            "SELECT * FROM investigation_entries WHERE investigation_id=? ORDER BY created_at ASC, entry_id ASC",
+            (investigation_id,)
+        ).fetchall()]
+        images = [dict(r) for r in c.execute(
+            """SELECT image_id, investigation_id, filename, label, platform, sha256, phash, dhash,
+                      width, height, byte_size, created_at
+               FROM image_assets WHERE investigation_id=?
+               ORDER BY created_at ASC, image_id ASC""",
+            (investigation_id,)
+        ).fetchall()]
+    return {
+        "investigation": dict(inv),
+        "evidence": evidence,
+        "entries": entries,
+        "images": images,
+        "stats": stats(investigation_id),
+        "generated_at": now_iso(),
+    }
