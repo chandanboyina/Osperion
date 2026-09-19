@@ -94,7 +94,6 @@ function renderOverview(j){
     return `<tr><td>#${e.evidence_id}</td><td>${esc(formatDate(e.created_at))}</td><td>${esc(e.platform)}</td><td>${esc(e.filename)}</td><td>${body}</td></tr>`;
   }).join('')}</tbody></table>`:'<div class="empty">No saved evidence yet.</div>';
 }
-}
 function renderImages(items){
   $('imageHistory').innerHTML=items.length?`<table><thead><tr><th>Time</th><th>Label</th><th>Platform</th><th>pHash</th><th>SHA-256</th><th>Action</th></tr></thead><tbody>${items.map(i=>`<tr><td>${esc(formatDate(i.created_at))}</td><td>${esc(i.label||i.filename)}</td><td>${esc(i.platform)}</td><td class="mono">${esc(i.phash)}</td><td class="mono">${esc(i.sha256.slice(0,18))}…</td><td><button class="danger-outline" onclick="deleteImage(${i.image_id})">Delete</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">No saved images in this investigation yet.</div>';
 }
