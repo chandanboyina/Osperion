@@ -108,9 +108,17 @@ def connect() -> sqlite3.Connection:
     return conn
 
 def cleanup() -> int:
+    """Remove only temporary, unassigned evidence.
+
+    Investigation evidence is permanent by design. Once evidence is explicitly
+    saved to an investigation, retention cleanup must never delete it.
+    """
     cutoff = (datetime.now(timezone.utc) - timedelta(days=get_retention_days())).isoformat()
     with connect() as c:
-        cur = c.execute("DELETE FROM evidence WHERE created_at < ?", (cutoff,))
+        cur = c.execute(
+            "DELETE FROM evidence WHERE investigation_id IS NULL AND created_at < ?",
+            (cutoff,)
+        )
         c.commit()
         return cur.rowcount
 
