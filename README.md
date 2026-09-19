@@ -26,6 +26,18 @@ It is designed for OSINT practitioners, cybersecurity researchers, investigators
 
 ---
 
+## 💾 Persistence & Data Safety
+
+OSPERION treats **saved investigation data as persistent evidence**. Investigation evidence is not subject to the temporary retention cleanup used for unsaved/global records.
+
+For hosted deployments, the application must use persistent storage for SQLite and saved image assets. The included Render Blueprint configures a persistent `/var/data` disk for the service.
+
+> **Important:** Render persistent disks require a paid web-service plan. Render Free web services use an ephemeral filesystem, so SQLite data and uploaded files can disappear when the service restarts, spins down, or redeploys.
+
+For real investigations, the recommended deployment remains **local-first**. Keep the OSPERION data directory on reliable storage and back it up regularly.
+
+---
+
 ## ⚠️ Live Demo — Sample Only
 
 The publicly deployed OSPERION web version is a **sample/demo environment** intended to showcase the interface and workflow.
@@ -881,6 +893,11 @@ For sensitive or confidential work:
 ---
 
 # 📌 Version History
+
+## 0.5.1
+
+- Persistent investigation evidence protection
+- Render persistent-storage deployment configuration
 
 ## 0.5.0
 
