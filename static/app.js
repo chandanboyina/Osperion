@@ -55,6 +55,7 @@ async function openInvestigation(id){
 }
 $('backHome').onclick=()=>{show('investigationDetail',false);show('investigationHome',true);currentInvestigation=null;loadInvestigations()};
 $('editInvestigation').onclick=()=>openEditInvestigation();
+$('downloadReport').onclick=()=>{if(currentInvestigation)window.location.href='/api/investigations/'+currentInvestigation.investigation_id+'/report.pdf';};
 $('deleteInvestigation').onclick=async()=>{
   if(!currentInvestigation)return;
   if(!confirm(`Delete "${currentInvestigation.name}" and all its evidence and journal entries? This cannot be undone.`))return;
