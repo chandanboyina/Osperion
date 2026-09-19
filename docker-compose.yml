@@ -1,0 +1,10 @@
+services:
+  osperion:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - osperion_data:/data
+    restart: unless-stopped
+volumes:
+  osperion_data:
